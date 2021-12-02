@@ -11,3 +11,4 @@
 # Link's
 - Criando Servidor S8: https://www.youtube.com/watch?v=NaDUITcssYw
 - Sou um idiota estou travado na parte de Renomear o arquivo: https://www.youtube.com/watch?v=mdXePAIlwFM
+- Adicionando item ao meu personagem no servidor: 
