@@ -235,6 +235,10 @@ namespace S8_Private
                     m.WriteMemory("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "float", j);
                 }
             }
+            if(e.KeyPressed == Key.F3)
+            {
+                m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "105");
+            }
         }
         void Valores(double controle)
         {
