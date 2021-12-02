@@ -35,7 +35,7 @@ namespace S8_Private
         double caliper, caliperset, calipercurrency, porcentagem, barraAcerto;
 
         int estadoBola,terreno;
-        bool Aberto = false;
+        bool Aberto = false, fastdunk = false;
 
         public MainWindow()
         {
@@ -57,15 +57,22 @@ namespace S8_Private
                 Memorias();
                 distanciaTEXT.Content = Convert.ToString(Distancia(pin1, tee1, pin3, tee3));
                 alturaTEXT.Content = Convert.ToString(Altura(tee2, pin2));
-                ventoTEXT.Content = Vento(vento);
+                ventoTEXT.Content = vento;
                 anguloTEXT.Content = Convert.ToString(Angulo(cosAngulo, senoAngulo));
                 quebraTEXT.Content = Convert.ToString(quebraBola(senoBola, cosBola, eixox, eixoy));
                 terrenoTEXT.Content = Convert.ToString(Terreno(terreno) + "%");
+                pbTEXT.Content = Convert.ToString(pbTirado(pin1, tee1, pin3, tee3));
+                if(fastdunk == true)
+                {
+                    calcular.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Primitives.ButtonBase.ClickEvent));
+                    fastdunk = false;
+                }
             }
             else
             {
                 mapaTEXT.Content = "Esperando Partida...";
                 mapaTEXT.Foreground = Brushes.Red;
+                ventoTEXT.Content = "0";
             }  
         }
         private void BGW_DoWork(object sender, DoWorkEventArgs e)
@@ -89,14 +96,14 @@ namespace S8_Private
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            BGW.RunWorkerAsync();
             exc.Visible = true;
-            excWb = exc.Workbooks.Open(@"C:\280uks8.xlsx");
+            excWb = exc.Workbooks.Open(@"C:\280uk.xlsx");
             excWs = excWb.Worksheets[1];
             excWs.Activate();
             _listener = new LowLevelKeyboardListener();
-            _listener.OnKeyPressed += _listener_OnKeyPressed;
+            _listener.OnKeyPressed += _listener_OnKeyPressed; 
             _listener.HookKeyboard();
+            BGW.RunWorkerAsync();
         }
         void Memorias()
         {
@@ -137,7 +144,7 @@ namespace S8_Private
             radianusPosicao = posicao * Math.PI / 180;
             radianusPosicao *= -1;
             senoInverso = Math.Sin(radianusPosicao) * -1;
-            resultadoautoquebra = Math.Round(((bolax * y) + (bolay * senoInverso)) * -1 * (1 / 0.00875), 2);
+            resultadoautoquebra = Math.Round(((bolax * y) + (bolay * senoInverso)) * -1 * (1 / 0.00725), 2); //0.00875
             return resultadoautoquebra;
         }
         double autoPB(double d, double mh, double pbresultado)
@@ -169,7 +176,7 @@ namespace S8_Private
             {
                 pb2 *= -1;
             }
-            return pb2;
+            return Math.Round(pb2,2);
         }
         double Calibrador(double p)
         {
@@ -190,10 +197,6 @@ namespace S8_Private
         double Altura(double x1, double x2)
         {
             return Math.Round((pin2 - tee2 + 0.14) * (0.312495 * 0.914),2);
-        }
-        string Vento(string x)
-        {
-            return x.Substring(0, 1);
         }
         private void direcaoVento(double seno, double cos)
         {
@@ -221,9 +224,39 @@ namespace S8_Private
         {
             if (e.KeyPressed == Key.F1)
             {
-                Close();
-               
+                fastdunk = true;
             } 
         }
+        void Valores()
+        {
+            excWs.Cells[1, 2].Value = distanciaTEXT.Content;
+            excWs.Cells[2, 2].Value = alturaTEXT.Content;
+            vento = vento.Substring(0, 1);
+            excWs.Cells[3, 2].Value = vento;
+            excWs.Cells[4, 2].Value = anguloTEXT.Content;
+            excWs.Cells[5, 2].Value = quebraTEXT.Content;
+            excWs.Cells[6, 2].Value = terrenoTEXT.Content;
+        }
+
+        void Dunk1w()
+        {
+            if(backoufront == "Front")
+            {
+                resultadoTEXT.Content =  Convert.ToString(excWs.Cells[2 , 10].Value);
+                calibradorTEXT.Content = Convert.ToString(excWs.Cells[4 , 10].Value);
+            }
+            else
+            {
+                resultadoTEXT.Content = Convert.ToString(excWs.Cells[2 , 11].Value);
+                calibradorTEXT.Content = Convert.ToString(excWs.Cells[4 , 11].Value);
+            }
+        }
+
+        private void buttondunk_Click(object sender, RoutedEventArgs e)
+        {
+            Valores();
+            Dunk1w();
+        }
+
     }
 }
