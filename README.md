@@ -1,5 +1,5 @@
 # Mini Tutorial
-- Renomeie o seu programa projectg.exe.exe para ProjectG,
+- Renomeie o seu programa projectg.exe.exe para ProjectG.exe,
 - Renomeie o projectg.exe.exe para ProjectG.exe, as vezes seu PC está com a extensão de formato de arquivo desativado, caso esteje desativado ATIVE!
 - ![image](https://user-images.githubusercontent.com/82356894/144499929-e7da7c5f-a9d7-4576-95f7-3a7d140079e9.png)
 
