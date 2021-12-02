@@ -52,14 +52,18 @@ namespace S8_Private
             mapa = m.ReadFloat("00EC97A0", "", false);
             if (mapa != 1)
             {
+                Memorias();
+                direcaoVento(senoAngulo, cosAngulo);
                 mapaTEXT.Content = "Boa Sorte!";
                 mapaTEXT.Foreground = Brushes.Green;
-                Memorias();
                 distanciaTEXT.Content = Convert.ToString(Distancia(pin1, tee1, pin3, tee3));
                 alturaTEXT.Content = Convert.ToString(Altura(tee2, pin2));
                 ventoTEXT.Content = vento;
                 anguloTEXT.Content = Convert.ToString(Angulo(cosAngulo, senoAngulo));
-                quebraTEXT.Content = Convert.ToString(quebraBola(senoBola, cosBola, eixox, eixoy));
+                if(esquerdaoudireita == "Direita")
+                    quebraTEXT.Content = Convert.ToString(quebraBola(senoBola, cosBola, eixox, eixoy) * -1);
+                else
+                    quebraTEXT.Content = Convert.ToString(quebraBola(senoBola, cosBola, eixox, eixoy));
                 terrenoTEXT.Content = Convert.ToString(Terreno(terreno) + "%");
                 pbTEXT.Content = Convert.ToString(pbTirado(pin1, tee1, pin3, tee3));
                 if(fastdunk == true)
@@ -116,7 +120,7 @@ namespace S8_Private
             senoAngulo = m.ReadFloat("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x234,0xB4", "", false);
             cosAngulo = m.ReadFloat("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x234,0xAC", "", false);
             eixox = m.ReadFloat("ProjectG.exe+00AC79E0,0xA4,0x14,0x10,0x30,0x0,0x21C,0x1C", "", false);
-            eixoy = m.ReadFloat("ProjectG.exe+007229D8,0x8,0x10,0x28,0x0,0x0,0x21C,0x24", "", false);
+            eixoy = m.ReadFloat("ProjectG.exe+00AC79E0,0x8,0x10,0x28,0x0,0x0,0x21C,0x24", "", false);
             cosBola = m.ReadFloat("00EC97A0", "", false);
             senoBola = m.ReadFloat("00EC97A8", "", false);
             vento = m.ReadString("ProjectG.exe+00AC79E0,0x8,0x10,0x30,0x0,0x220,0x28,0x0", "");
@@ -130,7 +134,7 @@ namespace S8_Private
         }
         double quebraBola(double x, double y, double bolax, double bolay)
         {
-            double radianusSeno, radianusCos, senoInverso, radianusPosicao, posicao, resultadoautoquebra;
+            double radianusSeno, radianusCos, senoInverso, radianusPosicao, posicao, resultadoautoquebra, cos;
             radianusSeno = Math.Asin(x) * 180 / Math.PI;
             radianusCos = Math.Acos(y) * 180 / Math.PI;
             if (radianusSeno < 0.0)
@@ -144,14 +148,15 @@ namespace S8_Private
             radianusPosicao = posicao * Math.PI / 180;
             radianusPosicao *= -1;
             senoInverso = Math.Sin(radianusPosicao) * -1;
-            resultadoautoquebra = Math.Round(((bolax * y) + (bolay * senoInverso)) * -1 * (1 / 0.00725), 2); //0.00875
+            cos = Math.Cos(radianusPosicao);
+            resultadoautoquebra = Math.Round(((bolax * cos) + (bolay * senoInverso)) * -1 * (1 / 0.00875), 2); //0.00875 
             return resultadoautoquebra;
         }
         double autoPB(double d, double mh, double pbresultado)
         {
             pbtoyards = 0.2167 * pbresultado;
             atanpbtoyards = Math.Atan(pbtoyards / d) * 1.5;
-            if (esquerdaoudireita == "Esquerda")
+            if (esquerdaoudireita == "Direita")
             {
                 return gridPersonagem + atanpbtoyards;
             }
@@ -205,7 +210,7 @@ namespace S8_Private
             else
                 esquerdaoudireita = "Direita";
 
-            if (seno > 0 && cos > 0 || seno< 0 && cos > 0)
+            if (seno > 0 && cos < 0 || seno > 0 && cos > 0)
                 backoufront = "Front";
             else
                 backoufront = "Back";
@@ -226,36 +231,50 @@ namespace S8_Private
             {
                 fastdunk = true;
             } 
-        }
-        void Valores()
-        {
-            excWs.Cells[1, 2].Value = distanciaTEXT.Content;
-            excWs.Cells[2, 2].Value = alturaTEXT.Content;
-            vento = vento.Substring(0, 1);
-            excWs.Cells[3, 2].Value = vento;
-            excWs.Cells[4, 2].Value = anguloTEXT.Content;
-            excWs.Cells[5, 2].Value = quebraTEXT.Content;
-            excWs.Cells[6, 2].Value = terrenoTEXT.Content;
-        }
-
-        void Dunk1w()
-        {
-            if(backoufront == "Front")
+            if(e.KeyPressed == Key.F2)
             {
-                resultadoTEXT.Content =  Convert.ToString(excWs.Cells[2 , 10].Value);
-                calibradorTEXT.Content = Convert.ToString(excWs.Cells[4 , 10].Value);
-            }
-            else
-            {
-                resultadoTEXT.Content = Convert.ToString(excWs.Cells[2 , 11].Value);
-                calibradorTEXT.Content = Convert.ToString(excWs.Cells[4 , 11].Value);
+                if (mapa != 1)
+                {
+                    double p = Convert.ToDouble(resultadoTEXT.Content);
+                    string j;
+                    j = Convert.ToString(autoPB(Distancia(pin1, tee1, pin3, tee3), gridPersonagem, p));
+                    m.WriteMemory("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "float", j);
+                }
             }
         }
-
+        void Valores(double controle)
+        {
+            if (controle != 1)
+            {
+                excWs.Cells[1, 2].Value = distanciaTEXT.Content;
+                excWs.Cells[2, 2].Value = alturaTEXT.Content;
+                vento = vento.Substring(0, 1);
+                excWs.Cells[3, 2].Value = vento;
+                excWs.Cells[4, 2].Value = anguloTEXT.Content;
+                excWs.Cells[5, 2].Value = quebraTEXT.Content;
+                excWs.Cells[6, 2].Value = terrenoTEXT.Content;
+            }
+        }
+        void Dunk1w(string x, double controle)
+        {
+            if (controle != 1)
+            {
+                if (x == "Front")
+                {
+                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[2, 10].Value);
+                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[4, 10].Value);
+                }
+                else
+                {
+                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[2, 11].Value);
+                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[4, 11].Value);
+                }
+            }
+        }
         private void buttondunk_Click(object sender, RoutedEventArgs e)
         {
-            Valores();
-            Dunk1w();
+            Valores(mapa);
+            Dunk1w(backoufront,mapa);
         }
 
     }
