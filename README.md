@@ -7,7 +7,7 @@
 
 
 # Comandos
-- F1 = Calculo Dunk 1W,
+- F1 = Calculo Dunk 1w,
 - F2 = PB Automatico, Caliper Automatico, Sempre Pangya,
 - F3 = Libera Barra,
 
