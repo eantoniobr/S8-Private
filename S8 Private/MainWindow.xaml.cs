@@ -26,7 +26,7 @@ namespace S8_Private
         Worksheet excWs;
 
         double mapa;
-        double tee1, tee2, tee3, pin1, pin2, pin3, eixox, eixoy, cosBola, senoBola;
+        double tee1, tee2, tee3, pin1, pin2, pin3, eixox, eixoy, cosBola, senoBola, spin, curva;
 
         double pbtoyards, atanpbtoyards, gridPersonagem;
 
@@ -66,6 +66,8 @@ namespace S8_Private
                     quebraTEXT.Content = Convert.ToString(quebraBola(senoBola, cosBola, eixox, eixoy));
                 terrenoTEXT.Content = Convert.ToString(Terreno(terreno) + "%");
                 pbTEXT.Content = Convert.ToString(pbTirado(pin1, tee1, pin3, tee3));
+                spinTEXT.Content = Convert.ToString(Math.Round(spin,2));
+                curvaTEXT.Content = Convert.ToString(Math.Round(curva,2));
                 //CONTROLE DUNK
                 if(fastdunk == true)
                 {
@@ -154,10 +156,13 @@ namespace S8_Private
             cosBola = m.ReadFloat("00EC97A0", "", false);
             senoBola = m.ReadFloat("00EC97A8", "", false);
             vento = m.ReadString("ProjectG.exe+00AC79E0,0x8,0x10,0x30,0x0,0x220,0x28,0x0", "");
-            estadoBola = m.ReadByte("ProjectG.exe+00AC79E0,0x0,0x58,0x10,0x0,0x0,0x14,0xF8");   
-            gridPersonagem = m.ReadFloat("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "", false);
+            estadoBola = m.ReadByte("ProjectG.exe+00AC79E0,0x0,0x58,0x10,0x0,0x0,0x14,0xF8");
+            //gridPersonagem = m.ReadFloat("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "", false); //CASO NÃO FUNCIONE SEU AUTO PB SO USAR ESSE GRID!!!
+            gridPersonagem = m.ReadFloat("ProjectG.exe+00AC79E0,0x0,0x40,0x10,0xC,0x30,0x0,0x68", "", false);
             terreno = m.ReadInt("ProjectG.exe+AC79E0,0x1C,0x0,0x10,0x18,0x0,0x21C,0xAC", "");
             driver = m.ReadByte("ProjectG.exe+A40359");
+            spin = m.ReadFloat("ProjectG.exe+0xAC79E0,0x1C,0x20,0x14,0x28,0x0,0x0,0x1C");
+            curva = m.ReadFloat("ProjectG.exe+0xAC79E0,0x1C,0x20,0x14,0x28,0x0,0x0,0x18");
         }
         double quebraBola(double x, double y, double bolax, double bolay)
         {

@@ -10,57 +10,72 @@
         <Grid.Background>
             <SolidColorBrush Color="Black" Opacity="1"/>
         </Grid.Background>
-        <Label x:Name="distanciaTEXT" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="48" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Margin="35,10,0,0"/>
-        <Label x:Name="alturaTEXT" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="46" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Margin="113,10,0,0"/>
-        <Label x:Name="ventoTEXT" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="48" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Margin="35,43,0,0"/>
-        <Label x:Name="anguloTEXT" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="46" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Margin="113,43,0,0"/>
-        <Label x:Name="quebraTEXT" Content="0" HorizontalAlignment="Left" Margin="35,75,0,0" VerticalAlignment="Top" Height="22" Width="48" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White"/>
-        <Label x:Name="terrenoTEXT" Content="0" HorizontalAlignment="Left" Margin="113,75,0,0" VerticalAlignment="Top" Height="22" Width="46" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White"/>
-        <Rectangle HorizontalAlignment="Left" Height="22" Margin="19,10,0,0" VerticalAlignment="Top" Width="11">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="pin.png" Stretch="Uniform"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle HorizontalAlignment="Left" Height="22" Margin="94,10,0,0" VerticalAlignment="Top" Width="12">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="height.png" Stretch="Uniform"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle HorizontalAlignment="Left" Height="22" Margin="16,43,0,0" VerticalAlignment="Top" Width="17">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="wind.png" Stretch="Uniform"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle HorizontalAlignment="Left" Height="22" Margin="92,43,0,0" VerticalAlignment="Top" Width="16">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="angle.png" Stretch="Uniform"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle HorizontalAlignment="Left" Height="22" Margin="16,75,0,0" VerticalAlignment="Top" Width="17">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="ball.png" Stretch="Uniform"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Rectangle HorizontalAlignment="Left" Height="22" Margin="89,75,0,0" VerticalAlignment="Top" Width="22">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="terrain.png" Stretch="Uniform"/>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Label x:Name="pbTEXT" Content="0" HorizontalAlignment="Center" Margin="35,108,92,0" VerticalAlignment="Top" Height="23" Width="48" FontFamily="Bahnschrift" FontWeight="Bold" Background="{x:Null}" Foreground="#FFCDA20F" FontSize="14"/>
-        <Label x:Name="resultadoTEXT" Content="0" HorizontalAlignment="Center" Margin="35,136,31,0" VerticalAlignment="Top" Height="22" Width="109" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White"/>
-        <Label x:Name="calibradorTEXT" Content="0" HorizontalAlignment="Center" Margin="113,108,5,0" VerticalAlignment="Top" Height="23" Width="57" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="#FF00C5FF"/>
-        <Button x:Name="calcular" Content="Button" HorizontalAlignment="Left" Margin="125,-21,0,0" VerticalAlignment="Top" Height="21" Width="45" Click="buttondunk_Click" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}"/>
         <Rectangle HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="175" Margin="0,-77,0,0">
             <Rectangle.Fill>
                 <ImageBrush ImageSource="tiger.png" Stretch="UniformToFill" Opacity="1"/>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle HorizontalAlignment="Left" Height="1" Margin="5,39,0,0" VerticalAlignment="Top" Width="165" Fill="White"/>
-        <Rectangle HorizontalAlignment="Left" Height="1" Margin="5,70,0,0" VerticalAlignment="Top" Width="165" Fill="White"/>
-        <Rectangle HorizontalAlignment="Left" Height="1" Margin="5,101,0,0" VerticalAlignment="Top" Width="165" Fill="White"/>
-        <TextBlock HorizontalAlignment="Left" Margin="16,110,0,0" TextWrapping="Wrap" Text="Pb" VerticalAlignment="Top" Foreground="White" FontSize="14" FontWeight="Bold"/>
-        <TextBlock HorizontalAlignment="Left" Margin="88,112,0,0" TextWrapping="Wrap" Text="Clpr" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-        <TextBlock Name="tigerTEXT" HorizontalAlignment="Left" Margin="3,-60,0,0" TextWrapping="Wrap" Text="Tiger" VerticalAlignment="Top" Foreground="Black" FontFamily="Square721 BT" FontSize="16"/>
-        <TextBlock Name="helperTEXT" HorizontalAlignment="Left" Margin="134,-55,0,0" TextWrapping="Wrap" Text="Helper" VerticalAlignment="Top" Foreground="Black" RenderTransformOrigin="4.056,0.826" FontFamily="Square721 BT"/>
+        <Grid Margin="26,6,4,6">
+            <Label x:Name="distanciaTEXT" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="48" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Margin="19,0,0,0"/>
+            <Label x:Name="alturaTEXT" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="46" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Margin="97,0,0,0"/>
+            <Label x:Name="ventoTEXT" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="48" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Margin="19,33,0,0"/>
+            <Label x:Name="anguloTEXT" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="46" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Margin="97,33,0,0"/>
+            <Label x:Name="quebraTEXT" Content="0" HorizontalAlignment="Left" Margin="19,65,0,0" VerticalAlignment="Top" Height="22" Width="48" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White"/>
+            <Label x:Name="terrenoTEXT" Content="0" HorizontalAlignment="Left" Margin="97,65,0,0" VerticalAlignment="Top" Height="22" Width="46" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White"/>
+            <Rectangle HorizontalAlignment="Left" Height="22" Margin="3,0,0,0" VerticalAlignment="Top" Width="11">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="pin.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="22" Margin="78,0,0,0" VerticalAlignment="Top" Width="12">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="height.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="22" Margin="0,33,0,0" VerticalAlignment="Top" Width="17">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="wind.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="22" Margin="76,33,0,0" VerticalAlignment="Top" Width="16">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="angle.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="22" Margin="0,65,0,0" VerticalAlignment="Top" Width="17">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="ball.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="22" Margin="73,65,0,0" VerticalAlignment="Top" Width="22">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="terrain.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Label x:Name="pbTEXT" Content="0" HorizontalAlignment="Center" Margin="19,130,78,0" VerticalAlignment="Top" Height="23" Width="48" FontFamily="Bahnschrift" FontWeight="Bold" Background="{x:Null}" Foreground="#FFCDA20F" FontSize="14"/>
+            <Label x:Name="calibradorTEXT" Content="0" HorizontalAlignment="Center" Margin="97,130,2,0" VerticalAlignment="Top" Height="23" Width="46" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="#FF00C5FF"/>
+            <TextBlock HorizontalAlignment="Left" Margin="0,132,0,0" TextWrapping="Wrap" Text="Pb" VerticalAlignment="Top" Foreground="White" FontSize="14" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Left" Margin="72,134,0,0" TextWrapping="Wrap" Text="Clpr" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+            <Rectangle HorizontalAlignment="Left" Height="22" Margin="0,97,0,0" VerticalAlignment="Top" Width="17">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="spin.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Left" Height="22" Margin="76,97,0,0" VerticalAlignment="Top" Width="16">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="curve.png" Stretch="Uniform"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Label x:Name="spinTEXT" Content="0" HorizontalAlignment="Left" Margin="19,97,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Width="48" Height="22"/>
+            <Label x:Name="curvaTEXT" Content="0" HorizontalAlignment="Left" Margin="97,96,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Width="48" Height="22"/>
+        </Grid>
+        <Label x:Name="resultadoTEXT" Content="0" HorizontalAlignment="Center" Margin="3,-30,159,0" VerticalAlignment="Top" Height="11" Width="13" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="{x:Null}" FontSize="1"/>
+        <Button x:Name="calcular" Content="Button" HorizontalAlignment="Left" Margin="125,-21,0,0" VerticalAlignment="Top" Height="21" Width="45" Click="buttondunk_Click" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}"/>
+        <Rectangle HorizontalAlignment="Left" Height="1" Margin="5,35,0,0" VerticalAlignment="Top" Width="165" Fill="White"/>
+        <Rectangle HorizontalAlignment="Left" Height="1" Margin="5,66,0,0" VerticalAlignment="Top" Width="165" Fill="White"/>
+        <Rectangle HorizontalAlignment="Left" Height="1" Margin="5,97,0,0" VerticalAlignment="Top" Width="165" Fill="White"/>
+        <TextBlock x:Name="tigerTEXT" HorizontalAlignment="Left" Margin="3,-60,0,0" TextWrapping="Wrap" Text="Tiger" VerticalAlignment="Top" Foreground="Black" FontFamily="Square721 BT" FontSize="16"/>
+        <TextBlock x:Name="helperTEXT" HorizontalAlignment="Left" Margin="134,-55,0,0" TextWrapping="Wrap" Text="Helper" VerticalAlignment="Top" Foreground="Black" RenderTransformOrigin="4.056,0.826" FontFamily="Square721 BT"/>
+        <Rectangle HorizontalAlignment="Left" Height="1" Margin="5,129,0,0" VerticalAlignment="Top" Width="165" Fill="White"/>
     </Grid>
 </Window>
