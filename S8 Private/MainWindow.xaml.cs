@@ -270,7 +270,8 @@ namespace S8_Private
                     double p = Math.Round(Convert.ToDouble(resultadoTEXT.Content),2);
                     string j;
                     j = Convert.ToString(autoPB(Distancia(pin1, tee1, pin3, tee3), gridPersonagem, p));
-                    m.WriteMemory("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "float", j);
+                    m.WriteMemory("ProjectG.exe+00AC79E0,0x0,0x40,0x10,0xC,0x30,0x0,0x68", "float", j);
+                    //m.WriteMemory("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "float", j); //CASO SEU AUTO PB NAO FUNCIONE!
                 }
             }
             if(e.KeyPressed == Key.F4)
