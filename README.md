@@ -18,3 +18,4 @@
 - Sou um idiota estou travado na parte de Renomear o arquivo: https://www.youtube.com/watch?v=mdXePAIlwFM
 - Adicionando item ao meu personagem no servidor: https://youtu.be/hxZXVrSa6XE
 - Entende um poquinho do Codigo e consertando PB AUTO: https://youtu.be/ak5Q9QDfKss 
+- Video teste #1: https://www.youtube.com/watch?v=H9QUTk5N8G0
