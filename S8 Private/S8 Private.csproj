@@ -156,5 +156,26 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="tiger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="height.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="wind.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="angle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ball.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="terrain.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
