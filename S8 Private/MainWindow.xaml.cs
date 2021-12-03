@@ -100,6 +100,18 @@ namespace S8_Private
 
             processoTEXT.Foreground = Brushes.Green;
         }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Process[] runingProcess = Process.GetProcesses();
+            for (int i = 0; i < runingProcess.Length; i++)
+            {
+                if (runingProcess[i].ProcessName == "EXCEL")
+                {
+                    runingProcess[i].Kill();
+                }
+            }
+            Process.GetCurrentProcess().Kill();
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             exc.Visible = true;
@@ -147,7 +159,7 @@ namespace S8_Private
             radianusPosicao *= -1;
             senoInverso = Math.Sin(radianusPosicao) * -1;
             cos = Math.Cos(radianusPosicao);
-            resultadoautoquebra = Math.Round(((bolax * cos) + (bolay * senoInverso)) * -1 * (1 / 0.00875), 2); //0.00875 
+            resultadoautoquebra = Math.Round(((bolax * cos) + (bolay * senoInverso)) * -1 * (1 / 0.00745), 2); //0.00875 
             return resultadoautoquebra;
         }
         double autoPB(double d, double mh, double pbresultado)

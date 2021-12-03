@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:S8_Private"
         mc:Ignorable="d"
-        Title="MainWindow" Height="251" Width="265" Loaded="Window_Loaded" ResizeMode="NoResize" Topmost="True" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}">
+        Title="MainWindow" Height="251" Width="265" Loaded="Window_Loaded" ResizeMode="NoResize" Topmost="True" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Closed="Window_Closed">
     <Grid MouseDown="Grid_MouseDown">
         <Grid.Background>
             <SolidColorBrush Color="Black" Opacity="0.35"/>
