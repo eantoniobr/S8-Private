@@ -42,7 +42,6 @@ namespace S8_Private
             InitializeComponent();
             BGW.DoWork += BGW_DoWork;
             BGW.RunWorkerCompleted += BGW_RunWorkerCompleted;
-            //BGW.ProgressChanged += BGW_ProgressChanged;
             BGW.WorkerReportsProgress = true;
             BGW.WorkerSupportsCancellation = true;
         }
@@ -60,16 +59,16 @@ namespace S8_Private
                 alturaTEXT.Content = Convert.ToString(Altura(tee2, pin2));
                 ventoTEXT.Content = vento;
                 anguloTEXT.Content = Convert.ToString(Angulo(cosAngulo, senoAngulo));
-                if(esquerdaoudireita == "Direita")
+                if (esquerdaoudireita == "Direita")
                     quebraTEXT.Content = Convert.ToString(quebraBola(senoBola, cosBola, eixox, eixoy) * -1);
                 else
                     quebraTEXT.Content = Convert.ToString(quebraBola(senoBola, cosBola, eixox, eixoy));
                 terrenoTEXT.Content = Convert.ToString(Terreno(terreno) + "%");
                 pbTEXT.Content = Convert.ToString(pbTirado(pin1, tee1, pin3, tee3));
-                spinTEXT.Content = Convert.ToString(Math.Round(spin,2));
-                curvaTEXT.Content = Convert.ToString(Math.Round(curva,2));
+                spinTEXT.Content = Convert.ToString(Math.Round(spin, 2));
+                curvaTEXT.Content = Convert.ToString(Math.Round(curva, 2));
                 //CONTROLE DUNK
-                if(fastdunk == true)
+                if (fastdunk == true)
                 {
                     calcular.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Primitives.ButtonBase.ClickEvent));
                     fastdunk = false;
@@ -93,12 +92,12 @@ namespace S8_Private
                 anguloTEXT.Content = "0";
                 ventoTEXT.Content = "0";
                 distanciaTEXT.Content = "0";
-                terrenoTEXT.Content= "0";
+                terrenoTEXT.Content = "0";
                 pbTEXT.Content = "0";
                 calibradorTEXT.Content = "0";
                 resultadoTEXT.Content = "0";
                 alturaTEXT.Content = "0";
-            }  
+            }
         }
         private void BGW_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -112,12 +111,6 @@ namespace S8_Private
             Thread.Sleep(10);
             BGW.ReportProgress(0);
         }
-        /*
-        private void BGW_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            //VOU DESATIVAR NO MOMENTO JA QUE NO LAYOUT NAO TEM O QUE IMPLEMENTAR 
-        }  
-        */
         private void Window_Closed(object sender, EventArgs e)
         {
             Process[] runingProcess = Process.GetProcesses();
@@ -132,14 +125,21 @@ namespace S8_Private
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            exc.Visible = true;
-            excWb = exc.Workbooks.Open(@"C:\280uk.xlsx");
-            excWs = excWb.Worksheets[1];
-            excWs.Activate();
-            _listener = new LowLevelKeyboardListener();
-            _listener.OnKeyPressed += _listener_OnKeyPressed; 
-            _listener.HookKeyboard();
-            BGW.RunWorkerAsync();
+            try
+            {
+                exc.Visible = true;
+                excWb = exc.Workbooks.Open(@"C:\280uk2.xlsx");
+                excWs = excWb.Worksheets[1];
+                excWs.Activate();
+                _listener = new LowLevelKeyboardListener();
+                _listener.OnKeyPressed += _listener_OnKeyPressed;
+                _listener.HookKeyboard();
+                BGW.RunWorkerAsync();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("PENIS!!!!");
+            }
         }
         void Memorias()
         {
@@ -181,7 +181,7 @@ namespace S8_Private
             radianusPosicao *= -1;
             senoInverso = Math.Sin(radianusPosicao) * -1;
             cos = Math.Cos(radianusPosicao);
-            resultadoautoquebra = Math.Round(((bolax * cos) + (bolay * senoInverso)) * -1 * (1 / 0.00745), 2); //0.00875 
+            resultadoautoquebra = Math.Round(((bolax * cos) + (bolay * senoInverso)) * -1 * (1 / 0.00868), 2);
             return resultadoautoquebra;
         }
         double autoPB(double d, double mh, double pbresultado)
@@ -213,7 +213,7 @@ namespace S8_Private
             {
                 pb2 *= -1;
             }
-            return Math.Round(pb2,2);
+            return Math.Round(pb2, 2);
         }
         double Angulo(double x, double y)
         {
@@ -221,15 +221,15 @@ namespace S8_Private
                 x *= -1;
             if (y < 0)
                 y *= -1;
-            return Math.Round(((Math.Asin(x) * 180 / Math.PI) + (Math.Acos(y) * 180 / Math.PI)) / 2,2);
+            return Math.Round(((Math.Asin(x) * 180 / Math.PI) + (Math.Acos(y) * 180 / Math.PI)) / 2, 2);
         }
-        double Distancia (double x1, double x2, double y1, double y2)
+        double Distancia(double x1, double x2, double y1, double y2)
         {
             return Math.Round(Math.Sqrt(Math.Pow(x2 - x1, 2) + Math.Pow(y2 - y1, 2)) * 0.312495, 2);
         }
         double Altura(double x1, double x2)
         {
-            return Math.Round((pin2 - tee2 + 0.14) * (0.312495 * 0.914),2);
+            return Math.Round((pin2 - tee2 + 0.14) * (0.312495 * 0.914), 2);
         }
         private void direcaoVento(double seno, double cos)
         {
@@ -243,7 +243,7 @@ namespace S8_Private
             else
                 backoufront = "Back";
         }
-        int Terreno(int x) 
+        int Terreno(int x)
         {
             x = 100 - x;
             return x;
@@ -267,14 +267,14 @@ namespace S8_Private
             {
                 if (mapa != 1)
                 {
-                    double p = Math.Round(Convert.ToDouble(resultadoTEXT.Content),2);
+                    double p = Math.Round(Convert.ToDouble(resultadoTEXT.Content), 2);
                     string j;
                     j = Convert.ToString(autoPB(Distancia(pin1, tee1, pin3, tee3), gridPersonagem, p));
                     m.WriteMemory("ProjectG.exe+00AC79E0,0x0,0x40,0x10,0xC,0x30,0x0,0x68", "float", j);
                     //m.WriteMemory("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "float", j); //CASO SEU AUTO PB NAO FUNCIONE!
                 }
             }
-            if(e.KeyPressed == Key.F4)
+            if (e.KeyPressed == Key.F4)
             {
                 m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "105");
             }
@@ -283,128 +283,142 @@ namespace S8_Private
         {
             if (controle != 1)
             {
-                excWs.Cells[1, 2].Value = distanciaTEXT.Content;
-                excWs.Cells[2, 2].Value = alturaTEXT.Content;
+                excWs.Cells[4, 2].Value = distanciaTEXT.Content;
+                excWs.Cells[4, 3].Value = alturaTEXT.Content;
                 vento = vento.Substring(0, 1);
-                excWs.Cells[3, 2].Value = vento;
-                excWs.Cells[4, 2].Value = anguloTEXT.Content;
-                excWs.Cells[5, 2].Value = quebraTEXT.Content;
-                excWs.Cells[6, 2].Value = terrenoTEXT.Content;
+                excWs.Cells[4, 4].Value = vento;
+                excWs.Cells[4, 5].Value = anguloTEXT.Content;
+                excWs.Cells[6, 6].Value = quebraTEXT.Content;
+                excWs.Cells[4, 8].Value = terrenoTEXT.Content;
             }
         }
         void Dunk(string x, double controle)
         {
             string spin;
-            if (controle != 1 && driver == 0)
+            try
             {
-                if (x == "Front")
+                if (controle != 1 && driver == 0)
                 {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[2, 10].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[4, 10].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[3,10].Value));
-                    spin = Convert.ToString(excWs.Cells[5, 10].Value);
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                    if (x == "Front")
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[17, 3].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 3].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[20, 3].Value));
+                        spin = Convert.ToString(excWs.Cells[22, 3].Value);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                    }
+                    else
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[17, 4].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 4].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[20, 4].Value));
+                        spin = Convert.ToString(excWs.Cells[22, 4].Value);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                    }
                 }
-                else
+                else if (controle != 1 && driver == 1)
                 {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[2, 11].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[4, 11].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[3, 11].Value));
-                    spin = Convert.ToString(excWs.Cells[5, 11].Value);
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                    if (x == "Front")
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[17, 7].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 7].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[20, 7].Value));
+                        spin = Convert.ToString(excWs.Cells[22, 7].Value);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                    }
+                    else
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[17, 8].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 8].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[20, 8].Value));
+                        spin = Convert.ToString(excWs.Cells[22, 8].Value);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                    }
+                }
+                else if (controle != 1 && driver == 2)
+                {
+                    if (x == "Front")
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[17, 11].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 11].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[20, 11].Value));
+                        spin = Convert.ToString(excWs.Cells[22, 11].Value);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                    }
+                    else
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[17, 12].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 12].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[20, 12].Value));
+                        spin = Convert.ToString(excWs.Cells[22, 12].Value);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                    }
                 }
             }
-            else if (controle != 1 && driver == 1)
+            catch (Exception)
             {
-                if (x == "Front")
-                {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[10, 10].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[12, 10].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[11, 10].Value));
-                    spin = Convert.ToString(excWs.Cells[13, 10].Value);
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
-                }
-                else
-                {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[10, 11].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[12, 11].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[11, 11].Value));
-                    spin = Convert.ToString(excWs.Cells[13, 11].Value);
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
-                }
-            }
-            else if (controle != 1 && driver == 2)
-            {
-                if (x == "Front")
-                {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[18, 10].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[20, 10].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[19, 10].Value));
-                    spin = Convert.ToString(excWs.Cells[21, 10].Value);
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
-                }
-                else
-                {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[18, 11].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[20, 11].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[19, 11].Value));
-                    spin = Convert.ToString(excWs.Cells[21, 11].Value);
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
-                }
+                MessageBox.Show("PENIS!!!!");
             }
         }
         void Toma(string x, double controle)
         {
-            if (controle != 1 && driver == 0)
+            try
             {
-                if (x == "Front")
+                if (controle != 1 && driver == 0)
                 {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[2, 6].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[4, 6].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[3, 6].Value));
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
+                    if (x == "Front")
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 3].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 3].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[29, 3].Value));
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
+                    }
+                    else
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 4].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 4].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[29, 4].Value));
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
+                    }
                 }
-                else
+                else if (controle != 1 && driver == 1)
                 {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[2, 7].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[4, 7].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[3, 7].Value));
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
+                    if (x == "Front")
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 7].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 7].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[29, 7].Value));
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
+                    }
+                    else
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 8].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 8].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[29, 8].Value));
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
+                    }
+                }
+                else if (controle != 1 && driver == 2)
+                {
+                    if (x == "Front")
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 11].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 11].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[29, 11].Value));
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
+                    }
+                    else
+                    {
+                        resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 12].Value);
+                        calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 12].Value);
+                        Calibrador(Convert.ToDouble(excWs.Cells[29, 12].Value));
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
+                    }
                 }
             }
-            else if (controle != 1 && driver == 1)
+            catch (Exception)
             {
-                if (x == "Front")
-                {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[9, 6].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[11, 6].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[10, 6].Value));
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
-                }
-                else
-                {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[9, 7].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[11, 7].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[10, 7].Value));
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
-                }
-            }
-            else if (controle != 1 && driver == 2)
-            {
-                if (x == "Front")
-                {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[16, 6].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[18, 6].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[17, 6].Value));
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
-                }
-                else
-                {
-                    resultadoTEXT.Content = Convert.ToString(excWs.Cells[16, 7].Value);
-                    calibradorTEXT.Content = Convert.ToString(excWs.Cells[18, 7].Value);
-                    Calibrador(Convert.ToDouble(excWs.Cells[17, 7].Value));
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
-                }
+                MessageBox.Show("PENIS!!!!");
             }
         }
         private void buttondunk_Click(object sender, RoutedEventArgs e)
@@ -423,14 +437,14 @@ namespace S8_Private
              * CREDITOS SERA!!!
             */
             string p;
-            if(mapa != 1)
+            if (mapa != 1)
             {
                 double calibradorCorreto = porcentagemCali.Aggregate((x, y) => Math.Abs(x - porcentagem) < Math.Abs(y - porcentagem) ? x : y);
-                p = Convert.ToString(Math.Round(500.0 - (100.0 - calibradorCorreto) * 3.6, 2));
+                p = Convert.ToString(500.0 - (100.0 - calibradorCorreto) * 3.6);
                 m.WriteMemory("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x46C,0x52C", "float", p);
                 m.WriteMemory("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x46C,0x530", "float", p);
                 m.WriteMemory("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x48,0x0,0x14,0x100", "float", p);
-            } 
+            }
         }
     }
 }
