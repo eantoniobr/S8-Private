@@ -19,3 +19,4 @@
 - Adicionando item ao meu personagem no servidor: https://youtu.be/hxZXVrSa6XE
 - Video teste #1: https://www.youtube.com/watch?v=H9QUTk5N8G0
 - Video teste #2: https://youtu.be/AqbSaOemsTg
+- Video Final: https://www.youtube.com/watch?v=LwE-BHPiyiM
