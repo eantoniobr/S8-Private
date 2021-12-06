@@ -9,6 +9,8 @@ using System.Diagnostics;
 using Gh0st_Helper_PRO;
 using Microsoft.Office.Interop.Excel;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace S8_Private
 {
@@ -17,6 +19,13 @@ namespace S8_Private
     /// </summary>
     public partial class MainWindow : System.Windows.Window
     {
+        [DllImport("Kernel32")]
+        public static extern void AllocConsole();
+
+        [DllImport("Kernel32")]
+        public static extern void FreeConsole();
+
+
         public Mem m = new Mem();
         private BackgroundWorker BGW = new BackgroundWorker();
         private LowLevelKeyboardListener _listener;
@@ -81,7 +90,7 @@ namespace S8_Private
                 //PIXEL PANGYA
                 if (estadoBola == 255)
                 {
-                    //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xD8", "float", "140");
+                    //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xD8", "float", "140");  
                     m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "140"); //PANGYA S8
                 }
             }
@@ -134,11 +143,19 @@ namespace S8_Private
                 _listener = new LowLevelKeyboardListener();
                 _listener.OnKeyPressed += _listener_OnKeyPressed;
                 _listener.HookKeyboard();
+                AllocConsole();
+                Console.WriteLine("=================== Console Aberto ===================");
+                int penis = Console.WindowWidth;
+                int penis2 = Console.WindowHeight;
+                int penis3 = penis / 2;
+                int penis4 = penis2;
+                Console.SetWindowSize(penis3, penis4);
                 BGW.RunWorkerAsync();
+
             }
             catch (Exception)
             {
-                MessageBox.Show("PENIS!!!!");
+                MessageBox.Show("Excel Not Found!, Excel Nao Encontrada!");
             }
         }
         void Memorias()
@@ -168,7 +185,7 @@ namespace S8_Private
             }
             catch (Exception)
             {
-                MessageBox.Show("Penis");
+                Console.WriteLine("Algum endereco de memoria recebeu um valor que nao deveria");
             }
              /*
             tee1 = m.ReadFloat("ProjectG.exe+670540", "", false);
@@ -285,27 +302,57 @@ namespace S8_Private
         {
             if (e.KeyPressed == Key.F1)
             {
+                if (driver == 0)
+                    escreverColorido("Calculando Dunk 1w.", ("{Dunk}", ConsoleColor.Green));
+                else if (driver == 1)
+                    escreverColorido("Calculando Dunk 2w.", ("{Dunk}", ConsoleColor.Green));
+                else if (driver == 2)
+                    escreverColorido("Calculando Dunk 3w.", ("{Dunk}", ConsoleColor.Green));
+                else
+                    Console.WriteLine("Penis");
+                Console.WriteLine("");
                 fastdunk = true;
             }
             if (e.KeyPressed == Key.F2)
             {
+                if (driver == 0)
+                    escreverColorido("Calculando Toma 1w.", ("{Toma}", ConsoleColor.Red));
+                else if (driver == 1)
+                    escreverColorido("Calculando Toma 2w.", ("{Toma}", ConsoleColor.Red));
+                else if (driver == 2)
+                    escreverColorido("Calculando Toma 3w.", ("{Toma}", ConsoleColor.Red));
+                else
+                    Console.WriteLine("Penis");
+                Console.WriteLine("");
                 fasttoma = true;
             }
             if (e.KeyPressed == Key.F3)
             {
-                if(mapa != 1)//if (mapa != 1)
-                {
+                if (mapa != 1)//if (mapa != 1)
+                {       
                     double p = Math.Round(Convert.ToDouble(resultadoTEXT.Content), 2);
-                    string j;
+                    string j,r;
+                    r = Convert.ToString(p);
                     j = Convert.ToString(autoPB(Distancia(pin1, tee1, pin3, tee3), gridPersonagem, p));
                     //m.WriteMemory("ProjectG.exe+007229D8,0x8,0x40,0x44,0x40,0x30,0x0,0x140", "float", j);
                     m.WriteMemory("ProjectG.exe+00AC79E0,0x0,0x40,0x10,0xC,0x30,0x0,0x68", "float", j); //S8
                     //m.WriteMemory("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "float", j); //CASO SEU AUTO PB NAO FUNCIONE!
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("|         Tabela AUTO PB           |");
+                    //Console.WriteLine("|                                  |");
+                    Console.WriteLine("| Grid Inicial: {0}", gridPersonagem + "   |");
+                    Console.WriteLine("| Grid Final: {0}  ",j + "     |");
+                    Console.WriteLine("|                                  |");
+                    Console.WriteLine("------------------------------------");
+                    Console.ResetColor();
                 }
             }
             if (e.KeyPressed == Key.F4)
             {
                 //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xD8", "float", "105"); //S4
+                escreverColorido("Liberando movimento da barra.", ("{barra.}", ConsoleColor.Blue));
+                Console.WriteLine("");
                 m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "105"); //S8
             }
         }
@@ -487,6 +534,25 @@ namespace S8_Private
                 m.WriteMemory("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x46C,0x52C", "float", p);
                 m.WriteMemory("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x46C,0x530", "float", p);
                 m.WriteMemory("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x48,0x0,0x14,0x100", "float", p);
+            }
+        }
+        void escreverColorido(string str, params (string substring, ConsoleColor color)[] colors)
+        {
+            var palavras = Regex.Split(str, @"( )");
+
+            foreach (var palavra in palavras)
+            {
+                (string substring, ConsoleColor color) cl = colors.FirstOrDefault(x => x.substring.Equals("{" + palavra + "}"));
+                if (cl.substring != null)
+                {
+                    Console.ForegroundColor = cl.color;
+                    Console.Write(cl.substring.Substring(1, cl.substring.Length - 2));
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.Write(palavra);
+                }
             }
         }
     }
