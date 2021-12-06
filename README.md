@@ -12,7 +12,7 @@
 - Os calculos são feitos para o driver ativo no momento exemplo: Se estiver com 1w na mão e apertar F1 vai calcular dunk 1w, se tiver com 2w será dunk 2w, 3w dunk 3w....
 - F1 = Calculos Dunk,
 - F2 = Calculos Toma,
-- F3 = PB Automatico, Caliper Automatico, Sempre Pangya,
+- F3 = PB Automatico, Caliper Automatico,
 - F4 = Libera Barra,
 
 # Link's
