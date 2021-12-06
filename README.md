@@ -1,4 +1,4 @@
-# Program
+# Programa
 ![PangYa S8](https://user-images.githubusercontent.com/82356894/144922301-2f0042d8-ce79-49bb-98d5-280237168331.jpg)
 # Mini Tutorial
 - Renomeie o seu programa projectg.exe.exe para ProjectG.exe,
