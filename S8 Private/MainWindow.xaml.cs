@@ -81,7 +81,8 @@ namespace S8_Private
                 //PIXEL PANGYA
                 if (estadoBola == 255)
                 {
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "140");
+                    //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xD8", "float", "140");
+                    m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "140"); //PANGYA S8
                 }
             }
             else
@@ -142,26 +143,54 @@ namespace S8_Private
         }
         void Memorias()
         {
-            tee1 = m.ReadFloat("00E1107C", "", false);
-            tee2 = m.ReadFloat("00E11080", "", false);
-            tee3 = m.ReadFloat("00E11084", "", false);
-            pin1 = m.ReadFloat("00EC445C", "", false);
-            pin2 = m.ReadFloat("00EC4460", "", false);
-            pin3 = m.ReadFloat("00EC4464", "", false);
-            senoAngulo = m.ReadFloat("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x234,0xB4", "", false);
-            cosAngulo = m.ReadFloat("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x234,0xAC", "", false);
-            eixox = m.ReadFloat("ProjectG.exe+00AC79E0,0xA4,0x14,0x10,0x30,0x0,0x21C,0x1C", "", false);
-            eixoy = m.ReadFloat("ProjectG.exe+00AC79E0,0x8,0x10,0x28,0x0,0x0,0x21C,0x24", "", false);
-            cosBola = m.ReadFloat("00EC97A0", "", false);
-            senoBola = m.ReadFloat("00EC97A8", "", false);
-            vento = m.ReadString("ProjectG.exe+00AC79E0,0x8,0x10,0x30,0x0,0x220,0x28,0x0", "");
-            estadoBola = m.ReadByte("ProjectG.exe+00AC79E0,0x0,0x58,0x10,0x0,0x0,0x14,0xF8");
-            //gridPersonagem = m.ReadFloat("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "", false); //CASO NÃO FUNCIONE SEU AUTO PB SO USAR ESSE GRID!!!
-            gridPersonagem = m.ReadFloat("ProjectG.exe+00AC79E0,0x0,0x40,0x10,0xC,0x30,0x0,0x68", "", false);
-            terreno = m.ReadInt("ProjectG.exe+AC79E0,0x1C,0x0,0x10,0x18,0x0,0x21C,0xAC", "");
-            driver = m.ReadByte("ProjectG.exe+A40359");
-            spin = m.ReadFloat("ProjectG.exe+0xAC79E0,0x1C,0x20,0x14,0x28,0x0,0x0,0x1C");
-            curva = m.ReadFloat("ProjectG.exe+0xAC79E0,0x1C,0x20,0x14,0x28,0x0,0x0,0x18");
+            try
+            {
+                tee1 = m.ReadFloat("00E1107C", "", false);
+                tee2 = m.ReadFloat("00E11080", "", false);
+                tee3 = m.ReadFloat("00E11084", "", false);
+                pin1 = m.ReadFloat("00EC445C", "", false);
+                pin2 = m.ReadFloat("00EC4460", "", false);
+                pin3 = m.ReadFloat("00EC4464", "", false);
+                senoAngulo = m.ReadFloat("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x234,0xB4", "", false);
+                cosAngulo = m.ReadFloat("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x234,0xAC", "", false);
+                eixox = m.ReadFloat("ProjectG.exe+00AC79E0,0xA4,0x14,0x10,0x30,0x0,0x21C,0x1C", "", false);
+                eixoy = m.ReadFloat("ProjectG.exe+00AC79E0,0x8,0x10,0x28,0x0,0x0,0x21C,0x24", "", false);
+                cosBola = m.ReadFloat("00EC97A0", "", false);
+                senoBola = m.ReadFloat("00EC97A8", "", false);
+                vento = m.ReadString("ProjectG.exe+00AC79E0,0x8,0x10,0x30,0x0,0x220,0x28,0x0", "");
+                estadoBola = m.ReadByte("ProjectG.exe+00AC79E0,0x0,0x58,0x10,0x0,0x0,0x14,0xF8");
+                //gridPersonagem = m.ReadFloat("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "", false); //CASO NÃO FUNCIONE SEU AUTO PB SO USAR ESSE GRID!!!
+                gridPersonagem = m.ReadFloat("ProjectG.exe+00AC79E0,0x0,0x40,0x10,0xC,0x30,0x0,0x68", "", false);
+                terreno = m.ReadInt("ProjectG.exe+AC79E0,0x1C,0x0,0x10,0x18,0x0,0x21C,0xAC", "");
+                driver = m.ReadByte("ProjectG.exe+A40359");
+                spin = m.ReadFloat("ProjectG.exe+0xAC79E0,0x1C,0x20,0x14,0x28,0x0,0x0,0x1C");
+                curva = m.ReadFloat("ProjectG.exe+0xAC79E0,0x1C,0x20,0x14,0x28,0x0,0x0,0x18");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Penis");
+            }
+             /*
+            tee1 = m.ReadFloat("ProjectG.exe+670540", "", false);
+            tee2 = m.ReadFloat("ProjectG.exe+670544", "", false);
+            tee3 = m.ReadFloat("ProjectG.exe+670548", "", false);
+            pin1 = m.ReadFloat("ProjectG.exe+71F33C", "", false);
+            pin2 = m.ReadFloat("ProjectG.exe+71F340", "", false);
+            pin3 = m.ReadFloat("ProjectG.exe+71F344", "", false);
+            cosAngulo = m.ReadFloat("ProjectG.exe+007229D8,0x1C,0x20,0x10,0x0,0x0,0x1DC,0x68", "", false);  //Seno
+            senoAngulo = m.ReadFloat("ProjectG.exe+007229D8,0x1C,0x10,0x10,0x30,0x0,0x1DC,0x70", "", false); //Cosseno
+            eixox = m.ReadFloat("ProjectG.exe+007229D8,0x9C,0x28,0x20,0x18,0x0,0x1C4,0x1C", "", false); //Eixo X
+            eixoy = m.ReadFloat("ProjectG.exe+007229D8,0x1C,0x20,0x3C,0x0,0x0,0x1C4,0x24", "", false); //Eixo Y
+            cosBola = m.ReadFloat("ProjectG.exe+725398", "", false); // MIRA X
+            senoBola = m.ReadFloat("ProjectG.exe+7253A0", "", false); // MIRA Y
+            vento = m.ReadString("ProjectG.exe+007229D8,0x1C,0x20,0x18,0x0,0x1C8,0x14,0x0", "");
+            estadoBola = m.ReadByte("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xE8");
+            gridPersonagem = m.ReadFloat("ProjectG.exe+007229D8,0x8,0x40,0x44,0x40,0x30,0x0,0x140", "", false);
+            terreno = m.ReadInt("ProjectG.exe+007229D8,0x1C,0x20,0x10,0x0,0x0,0x1C4,0x84");
+            driver = m.ReadByte("ProjectG.exe+69B139");
+            spin = m.ReadFloat("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24");
+            curva = m.ReadFloat("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x2C,0x30,0x0,0x20");
+            */
         }
         double quebraBola(double x, double y, double bolax, double bolay)
         {
@@ -264,18 +293,20 @@ namespace S8_Private
             }
             if (e.KeyPressed == Key.F3)
             {
-                if (mapa != 1)
+                if(mapa != 1)//if (mapa != 1)
                 {
                     double p = Math.Round(Convert.ToDouble(resultadoTEXT.Content), 2);
                     string j;
                     j = Convert.ToString(autoPB(Distancia(pin1, tee1, pin3, tee3), gridPersonagem, p));
-                    m.WriteMemory("ProjectG.exe+00AC79E0,0x0,0x40,0x10,0xC,0x30,0x0,0x68", "float", j);
+                    //m.WriteMemory("ProjectG.exe+007229D8,0x8,0x40,0x44,0x40,0x30,0x0,0x140", "float", j);
+                    m.WriteMemory("ProjectG.exe+00AC79E0,0x0,0x40,0x10,0xC,0x30,0x0,0x68", "float", j); //S8
                     //m.WriteMemory("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "float", j); //CASO SEU AUTO PB NAO FUNCIONE!
                 }
             }
             if (e.KeyPressed == Key.F4)
             {
-                m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "105");
+                //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xD8", "float", "105"); //S4
+                m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "105"); //S8
             }
         }
         void Valores(double controle)
@@ -306,7 +337,8 @@ namespace S8_Private
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 3].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[20, 3].Value));
                         spin = Convert.ToString(excWs.Cells[22, 3].Value);
-                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", spin);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin); //S8
                     }
                     else
                     {
@@ -314,7 +346,8 @@ namespace S8_Private
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 4].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[20, 4].Value));
                         spin = Convert.ToString(excWs.Cells[22, 4].Value);
-                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", spin);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin); //S8
                     }
                 }
                 else if (controle != 1 && driver == 1)
@@ -325,7 +358,8 @@ namespace S8_Private
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 7].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[20, 7].Value));
                         spin = Convert.ToString(excWs.Cells[22, 7].Value);
-                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", spin);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin); //S8
                     }
                     else
                     {
@@ -333,7 +367,8 @@ namespace S8_Private
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 8].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[20, 8].Value));
                         spin = Convert.ToString(excWs.Cells[22, 8].Value);
-                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", spin);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin); //S8
                     }
                 }
                 else if (controle != 1 && driver == 2)
@@ -344,7 +379,8 @@ namespace S8_Private
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 11].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[20, 11].Value));
                         spin = Convert.ToString(excWs.Cells[22, 11].Value);
-                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", spin);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin); //S8
                     }
                     else
                     {
@@ -352,7 +388,8 @@ namespace S8_Private
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[21, 12].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[20, 12].Value));
                         spin = Convert.ToString(excWs.Cells[22, 12].Value);
-                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin);
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", spin);
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", spin); //S8
                     }
                 }
             }
@@ -372,13 +409,15 @@ namespace S8_Private
                         resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 3].Value);
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 3].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[29, 3].Value));
-                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", "7"); //S4
+                        m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7"); //S8
                     }
                     else
                     {
                         resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 4].Value);
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 4].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[29, 4].Value));
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", "7"); //S4
                         m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
                     }
                 }
@@ -389,6 +428,7 @@ namespace S8_Private
                         resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 7].Value);
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 7].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[29, 7].Value));
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", "7"); //S4
                         m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
                     }
                     else
@@ -396,6 +436,7 @@ namespace S8_Private
                         resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 8].Value);
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 8].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[29, 8].Value));
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", "7"); //S4
                         m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
                     }
                 }
@@ -406,6 +447,7 @@ namespace S8_Private
                         resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 11].Value);
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 11].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[29, 11].Value));
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", "7"); //S4
                         m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
                     }
                     else
@@ -413,6 +455,7 @@ namespace S8_Private
                         resultadoTEXT.Content = Convert.ToString(excWs.Cells[26, 12].Value);
                         calibradorTEXT.Content = Convert.ToString(excWs.Cells[30, 12].Value);
                         Calibrador(Convert.ToDouble(excWs.Cells[29, 12].Value));
+                        //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x34,0x14,0x18,0x0,0x24", "float", "7"); //S4
                         m.WriteMemory("ProjectG.exe+00AC79E0,0x1C,0x20,0xC,0x2C,0x30,0x0,0x1C", "float", "7");
                     }
                 }
@@ -433,9 +476,14 @@ namespace S8_Private
         private void Calibrador(double porcentagem)
         {
             string p;
-            if (mapa != 1)
-            { 
+            if(mapa != 1)//if (mapa == 171)
+            {
                 p = Convert.ToString(calibradorTEXT.Content);
+                /*
+                m.WriteMemory("ProjectG.exe+69B720", "float", p);
+                m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x48,0x0,0x3DC,0x20", "float", p);
+                m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xF0", "float", p);
+                */ //PANGYA S4
                 m.WriteMemory("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x46C,0x52C", "float", p);
                 m.WriteMemory("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x18,0x0,0x46C,0x530", "float", p);
                 m.WriteMemory("ProjectG.exe+AC79E0,0x1C,0x20,0x14,0x48,0x0,0x14,0x100", "float", p);
