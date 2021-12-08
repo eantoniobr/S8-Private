@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:S8_Private"
         mc:Ignorable="d"
-        Title="MainWindow" Height="241.588" Width="175" Loaded="Window_Loaded" ResizeMode="NoResize" Topmost="True" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Closed="Window_Closed">
+        Title="MainWindow" Height="291" Width="175" Loaded="Window_Loaded" ResizeMode="NoResize" Topmost="True" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Closed="Window_Closed">
     <Grid MouseDown="Grid_MouseDown" Width="175" Margin="0,77,0,0">
         <Grid.Background>
             <SolidColorBrush Color="Black" Opacity="1"/>
@@ -68,6 +68,7 @@
             </Rectangle>
             <Label x:Name="spinTEXT" Content="0" HorizontalAlignment="Left" Margin="19,97,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Width="48" Height="22"/>
             <Label x:Name="curvaTEXT" Content="0" HorizontalAlignment="Left" Margin="97,96,0,0" VerticalAlignment="Top" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="White" Width="48" Height="22"/>
+            <Button Name="moveBUTTON" Content="Move Ball" HorizontalAlignment="Left" Margin="31,172,0,0" VerticalAlignment="Top" Width="64" Click="moveBUTTON_Click"/>
         </Grid>
         <Label x:Name="resultadoTEXT" Content="0" HorizontalAlignment="Center" Margin="3,-30,159,0" VerticalAlignment="Top" Height="11" Width="13" FontFamily="Bahnschrift" Background="{x:Null}" Foreground="{x:Null}" FontSize="1"/>
         <Button x:Name="calcular" Content="Button" HorizontalAlignment="Left" Margin="125,-21,0,0" VerticalAlignment="Top" Height="21" Width="45" Click="buttondunk_Click" Background="{x:Null}" Foreground="{x:Null}" BorderBrush="{x:Null}"/>

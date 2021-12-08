@@ -25,7 +25,6 @@ namespace S8_Private
         [DllImport("Kernel32")]
         public static extern void FreeConsole();
 
-
         public Mem m = new Mem();
         private BackgroundWorker BGW = new BackgroundWorker();
         private LowLevelKeyboardListener _listener;
@@ -35,14 +34,14 @@ namespace S8_Private
         Worksheet excWs;
 
         double mapa;
-        double tee1, tee2, tee3, pin1, pin2, pin3, eixox, eixoy, cosBola, senoBola, spin, curva;
+        double tee1, tee2, tee3, pin1, pin2, pin3, eixox, eixoy, cosBola, senoBola, spin, curva, ball1, ball2, ball3, pangGanho;
 
         double pbtoyards, atanpbtoyards, gridPersonagem;
 
         double senoAngulo, cosAngulo;
         string vento, backoufront, esquerdaoudireita;
 
-        int estadoBola, terreno, driver;
+        int estadoBola, terreno, driver, chipIN, controle = 0;
         bool Aberto = false, fastdunk = false, fasttoma = false;      
         public MainWindow()
 
@@ -79,12 +78,14 @@ namespace S8_Private
                 if (fastdunk == true)
                 {
                     calcular.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Primitives.ButtonBase.ClickEvent));
+                    controle = 0;
                     fastdunk = false;
                 }
                 //CONTROLE TOMA
                 if (fasttoma == true)
                 {
                     calcular.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Primitives.ButtonBase.ClickEvent));
+                    controle = 0;
                     fasttoma = false;
                 }
                 //PIXEL PANGYA
@@ -92,6 +93,18 @@ namespace S8_Private
                 {
                     //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xD8", "float", "140");  
                     m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "140"); //PANGYA S8
+                }
+                if(pangGanho > 0 && chipIN > 0)
+                {
+                    controle++;
+                    helperTEXT.Foreground = Brushes.Blue;
+                    tigerTEXT.Foreground = Brushes.Blue;
+                    if (controle == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.WriteLine("Acertou!!");
+                        Console.ResetColor();
+                    }
                 }
             }
             else
@@ -107,6 +120,32 @@ namespace S8_Private
                 resultadoTEXT.Content = "0";
                 alturaTEXT.Content = "0";
             }
+        }
+        private void moveBUTTON_Click(object sender, RoutedEventArgs e)
+        {
+            string moveball1, moveball2, moveball3;
+            moveball1 = Convert.ToString(Math.Round(pin1, 12));
+            moveball3 = Convert.ToString(Math.Round(pin3, 12));
+            moveball2 = Convert.ToString(Math.Round(pin2, 12));
+            m.WriteMemory("ProjectG.exe+A10FB0", "float", moveball1);
+            m.WriteMemory("ProjectG.exe+A10FB8", "float", moveball3);
+            m.WriteMemory("ProjectG.exe+A10FB4", "float", moveball2);
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("-----------------------");
+            Console.WriteLine("| HOLE POSITION X,Y,Z |");
+            Console.WriteLine("| {0}    |", Math.Round(pin1, 12));
+            Console.WriteLine("| {0}    |", Math.Round(pin2, 12));
+            Console.WriteLine("| {0}    |", Math.Round(pin3, 12));
+            Console.WriteLine("-----------------------");
+            Console.WriteLine("| BALL POSITION X,Y,Z |");
+            Console.WriteLine("| {0}    |", moveball1);
+            Console.WriteLine("| {0}    |", moveball2);
+            Console.WriteLine("| {0}    |", moveball3);
+            Console.WriteLine("-----------------------");
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Bola movida para o Hole");
+            Console.ResetColor();
         }
         private void BGW_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -144,7 +183,7 @@ namespace S8_Private
                 _listener.OnKeyPressed += _listener_OnKeyPressed;
                 _listener.HookKeyboard();
                 AllocConsole();
-                Console.WriteLine("=================== Console Aberto ===================");
+                Console.WriteLine("=========== CRIADO POR GH0ST ===========");
                 int penis = Console.WindowWidth;
                 int penis2 = Console.WindowHeight;
                 int penis3 = penis / 2;
@@ -182,12 +221,17 @@ namespace S8_Private
                 driver = m.ReadByte("ProjectG.exe+A40359");
                 spin = m.ReadFloat("ProjectG.exe+0xAC79E0,0x1C,0x20,0x14,0x28,0x0,0x0,0x1C");
                 curva = m.ReadFloat("ProjectG.exe+0xAC79E0,0x1C,0x20,0x14,0x28,0x0,0x0,0x18");
+                ball1 = m.ReadFloat("ProjectG.exe+A10FB0", "", false);
+                ball2 = m.ReadFloat("ProjectG.exe+A10FB4", "", false);
+                ball3 = m.ReadFloat("ProjectG.exe+A10FB8", "", false);
+                pangGanho = m.ReadInt("ProjectG.exe+0xAC79E0,0xA4,0x14,0x10,0x30,0x0,0x240,0x40", "");
+                chipIN = m.ReadByte("ProjectG.exe+0xAC79E0,0xA4,0x14,0x10,0x30,0x0,0x240,0x41", "");
             }
             catch (Exception)
             {
                 Console.WriteLine("Algum endereco de memoria recebeu um valor que nao deveria");
             }
-             /*
+             /* PANGYA S4
             tee1 = m.ReadFloat("ProjectG.exe+670540", "", false);
             tee2 = m.ReadFloat("ProjectG.exe+670544", "", false);
             tee3 = m.ReadFloat("ProjectG.exe+670548", "", false);
@@ -226,7 +270,7 @@ namespace S8_Private
             radianusPosicao *= -1;
             senoInverso = Math.Sin(radianusPosicao) * -1;
             cos = Math.Cos(radianusPosicao);
-            resultadoautoquebra = Math.Round(((bolax * cos) + (bolay * senoInverso)) * -1 * (1 / 0.00868), 2);
+            resultadoautoquebra = Math.Round(((bolax * cos) + (bolay * senoInverso)) * -1 * (1 / 0.00875), 2);
             return resultadoautoquebra;
         }
         double autoPB(double d, double mh, double pbresultado)
@@ -340,7 +384,6 @@ namespace S8_Private
                     Console.ForegroundColor = ConsoleColor.DarkMagenta;
                     Console.WriteLine("------------------------------------");
                     Console.WriteLine("|         Tabela AUTO PB           |");
-                    //Console.WriteLine("|                                  |");
                     Console.WriteLine("| Grid Inicial: {0}", gridPersonagem + "   |");
                     Console.WriteLine("| Grid Final: {0}  ",j + "     |");
                     Console.WriteLine("|                                  |");
@@ -442,7 +485,7 @@ namespace S8_Private
             }
             catch (Exception)
             {
-                MessageBox.Show("PENIS!!!!");
+                Console.WriteLine("Mude o driver para 1w, 2w ou 3w");
             }
         }
         void Toma(string x, double controle)
@@ -509,7 +552,7 @@ namespace S8_Private
             }
             catch (Exception)
             {
-                MessageBox.Show("PENIS!!!!");
+                Console.WriteLine("Mude o driver para 1w, 2w ou 3w");
             }
         }
         private void buttondunk_Click(object sender, RoutedEventArgs e)
