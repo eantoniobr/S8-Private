@@ -14,6 +14,7 @@
 - F2 = Calculos Toma,
 - F3 = PB Automatico, Caliper Automatico,
 - F4 = Libera Barra,
+- Move Ball = Move a bola para o hole!
 
 # Link's
 - Criando Servidor S8: https://www.youtube.com/watch?v=NaDUITcssYw
