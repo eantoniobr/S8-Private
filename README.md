@@ -14,11 +14,10 @@
 - F2 = Calculos Toma,
 - F3 = PB Automatico, Caliper Automatico,
 - F4 = Libera Barra,
+- Move Ball = Move a bola para o hole!
 
 # Link's
 - Criando Servidor S8: https://www.youtube.com/watch?v=NaDUITcssYw
 - Sou um idiota estou travado na parte de Renomear o arquivo: https://www.youtube.com/watch?v=mdXePAIlwFM
-- Adicionando item ao meu personagem no servidor: https://youtu.be/hxZXVrSa6XE
-- Video teste #1: https://www.youtube.com/watch?v=H9QUTk5N8G0
-- Video teste #2: https://youtu.be/AqbSaOemsTg
-- Video Final: https://www.youtube.com/watch?v=LwE-BHPiyiM
+- Explicando Código/Programa: https://www.youtube.com/watch?v=GRSCuY6deF8
+- Gameplay: https://www.youtube.com/watch?v=rz9q9hXQ85c
