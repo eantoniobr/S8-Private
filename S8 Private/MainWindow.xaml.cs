@@ -41,7 +41,7 @@ namespace S8_Private
         double senoAngulo, cosAngulo;
         string vento, backoufront, esquerdaoudireita;
 
-        int estadoBola, terreno, driver, chipIN, controle = 0;
+        int estadoBarra, terreno, driver, chipIN, controle = 0, bolaEstado;
         bool Aberto = false, fastdunk = false, fasttoma = false;      
         public MainWindow()
 
@@ -89,20 +89,26 @@ namespace S8_Private
                     fasttoma = false;
                 }
                 //PIXEL PANGYA
-                if (estadoBola == 255)
+                if (estadoBarra == 255)
                 {
                     //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xD8", "float", "140");  
                     m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "140"); //PANGYA S8
                 }
-                if(pangGanho > 0 && chipIN > 0)
+                if(bolaEstado != 0)
                 {
                     controle++;
                     helperTEXT.Foreground = Brushes.Blue;
                     tigerTEXT.Foreground = Brushes.Blue;
-                    if (controle == 1)
+                    if (pangGanho > 0 && controle == 1 && chipIN > 0)
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.WriteLine("Acertou!!");
+                        Console.ResetColor();
+                    }
+                    else if (chipIN == 0 && bolaEstado != 0 && controle == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Errou!!");
                         Console.ResetColor();
                     }
                 }
@@ -214,7 +220,7 @@ namespace S8_Private
                 cosBola = m.ReadFloat("00EC97A0", "", false);
                 senoBola = m.ReadFloat("00EC97A8", "", false);
                 vento = m.ReadString("ProjectG.exe+00AC79E0,0x8,0x10,0x30,0x0,0x220,0x28,0x0", "");
-                estadoBola = m.ReadByte("ProjectG.exe+00AC79E0,0x0,0x58,0x10,0x0,0x0,0x14,0xF8");
+                estadoBarra = m.ReadByte("ProjectG.exe+00AC79E0,0x0,0x58,0x10,0x0,0x0,0x14,0xF8");
                 //gridPersonagem = m.ReadFloat("ProjectG.exe+00A3D3A8,0xBC,0x0,0x0,0x0,0x4,0x6C,0x68", "", false); //CASO NÃO FUNCIONE SEU AUTO PB SO USAR ESSE GRID!!!
                 gridPersonagem = m.ReadFloat("ProjectG.exe+00AC79E0,0x0,0x40,0x10,0xC,0x30,0x0,0x68", "", false);
                 terreno = m.ReadInt("ProjectG.exe+AC79E0,0x1C,0x0,0x10,0x18,0x0,0x21C,0xAC", "");
@@ -224,6 +230,7 @@ namespace S8_Private
                 ball1 = m.ReadFloat("ProjectG.exe+A10FB0", "", false);
                 ball2 = m.ReadFloat("ProjectG.exe+A10FB4", "", false);
                 ball3 = m.ReadFloat("ProjectG.exe+A10FB8", "", false);
+                bolaEstado = m.ReadByte("00E10FC8", "");
                 pangGanho = m.ReadInt("ProjectG.exe+0xAC79E0,0xA4,0x14,0x10,0x30,0x0,0x240,0x40", "");
                 chipIN = m.ReadByte("ProjectG.exe+0xAC79E0,0xA4,0x14,0x10,0x30,0x0,0x240,0x41", "");
             }
@@ -245,7 +252,7 @@ namespace S8_Private
             cosBola = m.ReadFloat("ProjectG.exe+725398", "", false); // MIRA X
             senoBola = m.ReadFloat("ProjectG.exe+7253A0", "", false); // MIRA Y
             vento = m.ReadString("ProjectG.exe+007229D8,0x1C,0x20,0x18,0x0,0x1C8,0x14,0x0", "");
-            estadoBola = m.ReadByte("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xE8");
+            estadoBarra = m.ReadByte("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xE8");
             gridPersonagem = m.ReadFloat("ProjectG.exe+007229D8,0x8,0x40,0x44,0x40,0x30,0x0,0x140", "", false);
             terreno = m.ReadInt("ProjectG.exe+007229D8,0x1C,0x20,0x10,0x0,0x0,0x1C4,0x84");
             driver = m.ReadByte("ProjectG.exe+69B139");
