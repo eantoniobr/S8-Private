@@ -115,7 +115,17 @@ namespace S8_Private
                     else if(pangBonusWater == 1)
                     {
                         if(controleKike == 1)
+                        {
                             Console.WriteLine("Bola kiko a: " + Distancia(pin1, ball1, pin3, ball3) + "y do Hole.");
+                            if (pin1 < ball1)
+                                Console.WriteLine("Direta");
+                            else
+                                Console.WriteLine("Esquerda");
+                            if (pin3 < ball3)
+                                Console.WriteLine("Traz");
+                            else
+                                Console.WriteLine("Frente");
+                        }
                         controleKike = 0;
                     }     
                 }
