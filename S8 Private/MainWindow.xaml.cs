@@ -41,7 +41,7 @@ namespace S8_Private
         double senoAngulo, cosAngulo;
         string vento, backoufront, esquerdaoudireita;
 
-        int estadoBarra, terreno, driver, chipIN, controle = 0, bolaEstado;
+        int estadoBarra, terreno, driver, chipIN, controle, bolaEstado, pangBonusWater, controleKike;
         bool Aberto = false, fastdunk = false, fasttoma = false;      
         public MainWindow()
 
@@ -94,7 +94,7 @@ namespace S8_Private
                     //m.WriteMemory("ProjectG.exe+007229D8,0x1C,0x10,0x24,0x0,0x0,0x14,0xD8", "float", "140");  
                     m.WriteMemory("ProjectG.exe+00AC79E0,0x8,0x58,0x10,0x0,0x0,0x14,0xE8", "float", "140"); //PANGYA S8
                 }
-                if(bolaEstado != 0)
+                if (bolaEstado != 0)
                 {
                     controle++;
                     helperTEXT.Foreground = Brushes.Blue;
@@ -110,7 +110,14 @@ namespace S8_Private
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Errou!!");
                         Console.ResetColor();
+                        controleKike = 1;
                     }
+                    else if(pangBonusWater == 1)
+                    {
+                        if(controleKike == 1)
+                            Console.WriteLine("Bola kiko a: " + Distancia(pin1, ball1, pin3, ball3) + "y do Hole.");
+                        controleKike = 0;
+                    }     
                 }
             }
             else
@@ -233,6 +240,7 @@ namespace S8_Private
                 bolaEstado = m.ReadByte("00E10FC8", "");
                 pangGanho = m.ReadInt("ProjectG.exe+0xAC79E0,0xA4,0x14,0x10,0x30,0x0,0x240,0x40", "");
                 chipIN = m.ReadByte("ProjectG.exe+0xAC79E0,0xA4,0x14,0x10,0x30,0x0,0x240,0x41", "");
+                pangBonusWater = m.ReadInt("ProjectG.exe+0xAC79E0,0x8,0x10,0x28,0x0,0x0,0x240,0x7D0", "");
             }
             catch (Exception)
             {
